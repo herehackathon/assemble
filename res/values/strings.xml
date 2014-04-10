@@ -4,5 +4,6 @@
     <string name="app_name">ASSEMBLE!</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="assemble_button_text">ASSEMBLE!</string>
 
 </resources>

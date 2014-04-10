@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new AssembleFragment()).commit();
 		}
 	}
 
@@ -42,25 +42,4 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			//TestClass c = new TestClass(getActivity());
-			AssembleLocationProvider prov = new AssembleLocationProvider(this.getActivity());
-			Log.d("ASSEMBLE","In main activity "+prov.mLocationClient.getLastLocation());
-			return rootView;
-		}
-	}
-
 }

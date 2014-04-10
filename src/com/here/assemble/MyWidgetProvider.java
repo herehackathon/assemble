@@ -17,7 +17,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
   private static final String ACTION_CLICK = "ACTION_CLICK";
   private LocationManager m_locationManager;
   private Location m_location;
-  private AssembleLocationProvider m_locationProvider;
   
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -49,34 +48,19 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	  super.onReceive(context, intent);
 	  if(ACTION_CLICK.equals(intent.getAction()))
 	  {
+		  Log.d("ASSEMBLE!","CLICK");
 		     requestLocation(context);
-		     Toast.makeText(context, m_location.getLatitude() + ","+m_location.getLongitude(), Toast.LENGTH_SHORT);
 	  }
 	  Log.d("ASSEMBLE!","Action: "+intent.getAction());
   }
 
 	private void requestLocation(Context context) {
-		  if(m_locationProvider ==null){
-				 m_locationProvider= new AssembleLocationProvider(context);
-			  }
-		m_location = m_locationProvider.mLocationClient.getLastLocation();
-		// Acquire a reference to the system Location Manager
-//		 m_locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-//
-//		// Define a listener that responds to location updates
-//		LocationListener locationListener = new LocationListener() {
-//		    public void onLocationChanged(Location location) {
-//		    	m_location = location;
-//		    }
-//
-//		    public void onStatusChanged(String provider, int status, Bundle extras) {}
-//
-//		    public void onProviderEnabled(String provider) {}
-//
-//		    public void onProviderDisabled(String provider) {}
-//		  };
-//
-//		// Register the listener with the Location Manager to receive location updates
-//		m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);		
+		if (AssembleFragment.mLocationClient == null){
+			Log.e("ASSEMBLE!", "User has not started the activity yet");
+			Toast.makeText(context, "YOU HAVE NOT LAUNCHED THE ACTIVITY YET", Toast.LENGTH_LONG).show();
+		} else {
+			m_location = AssembleFragment.mLocationClient.getLastLocation();
+		    Toast.makeText(context, m_location.getLatitude() + ","+m_location.getLongitude(), Toast.LENGTH_SHORT).show();
+		}
 	}
 } 
