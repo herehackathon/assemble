@@ -80,7 +80,7 @@ public class AssembleFragment extends Fragment implements OnClickListener,
         Log.d("ASSEMBLE!", "" + mLocationClient.getLastLocation());
         /* Test code below! Should probably 1. thread, 2. create a new object, and 3 error validate it. But positive case works!*/
         if (mLocationClient.isConnected() && mLocationClient.getLastLocation() != null){
-        	Log.d("ASSEMBLE!","The message will look like: ASSEMBLE! https://here.com/" + mLocationClient.getLastLocation().getLatitude() + "," + mLocationClient.getLastLocation().getLongitude());
+        	Log.d("ASSEMBLE!","The message will look like: ASSEMBLE! http://here.com/?plcsDl=search&q=" + mLocationClient.getLastLocation().getLatitude() + "," + mLocationClient.getLastLocation().getLongitude());
         }
         		
     }
