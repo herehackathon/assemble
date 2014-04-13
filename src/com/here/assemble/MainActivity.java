@@ -17,7 +17,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 	 private static final String TAG = "ASSEMBLE.MainActivity";
-	 private ScbeService mScbeService = null;
+	 public static ScbeService mScbeService = null;
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @SuppressWarnings("unchecked")

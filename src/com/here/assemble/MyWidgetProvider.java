@@ -59,6 +59,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			Log.e("ASSEMBLE!", "User has not started the activity yet");
 			Toast.makeText(context, "YOU HAVE NOT LAUNCHED THE ACTIVITY YET", Toast.LENGTH_LONG).show();
 		} else {
+			Intent i = new Intent(context,SCBEService.class);
+			context.startService(i);
 			m_location = AssembleFragment.mLocationClient.getLastLocation();
 		    Toast.makeText(context, m_location.getLatitude() + ","+m_location.getLongitude(), Toast.LENGTH_SHORT).show();
 		}

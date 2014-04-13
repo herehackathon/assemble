@@ -1,24 +1,17 @@
 package com.here.assemble;
 
-import java.util.List;
-
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -26,14 +19,11 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.nokia.scbe.droid.ScbeClient;
 import com.nokia.scbe.droid.ScbeClient.OperationScope;
-import com.nokia.scbe.droid.ScbeListResponse;
+import com.nokia.scbe.droid.ScbeResponseBase.ScbeResponseStatus;
 import com.nokia.scbe.droid.ScbeResponseT;
 import com.nokia.scbe.droid.ScbeService;
-import com.nokia.scbe.droid.ScbeResponseBase.ScbeResponseStatus;
-import com.nokia.scbe.droid.ScbeService.ResponseTListener;
 import com.nokia.scbe.droid.datamodel.GeoCoordinate;
 import com.nokia.scbe.droid.datamodel.Location;
-import com.nokia.scbe.droid.datamodel.ScbeObject;
 import com.nokia.scbe.droid.datamodel.favoritePlace;
 
 
@@ -97,48 +87,10 @@ public class AssembleFragment extends Fragment implements OnClickListener,
 //        mLocationClient.setMockLocation(newLocation);
         /* End test code */
         Log.d("ASSEMBLE!", "" + mLocationClient.isConnected());
-
+        Intent i = new Intent(this.getActivity(),SCBEService.class);
+        this.getActivity().startService(i);
         Log.d("ASSEMBLE!", "" + mLocationClient.getLastLocation());
-        double latitude;
-        double longitude;
-        final ScbeService scbeService = ((MainActivity) getActivity()).getScbeService();
-        final favoritePlace favPlace = new favoritePlace();
-        /* Test code below! Should probably 1. thread, 2. create a new object, and 3 error validate it. But positive case works!*/
-        if (mLocationClient.isConnected() && mLocationClient.getLastLocation() != null){
-        	//Log.d("ASSEMBLE!","The message will look like: ASSEMBLE! http://here.com/?plcsDl=search&q=" + mLocationClient.getLastLocation().getLatitude() + "," + mLocationClient.getLastLocation().getLongitude());
-            latitude = 	mLocationClient.getLastLocation().getLatitude();
-            longitude = mLocationClient.getLastLocation().getLongitude();   
-            favPlace.name = "Assemble";
-            favPlace.attribution = "gregory.coletta@here.com,lili.shi@here.com,srividya.rajagopalan@here.com";
-            favPlace.description = "Something Awesome Is Happening HERE!!!";
-            if (favPlace.location == null)
-                favPlace.location = new Location();
-            if (favPlace.location.position == null)
-                favPlace.location.position = new GeoCoordinate();
-            favPlace.location.position.latitude = latitude;
-            favPlace.location.position.longitude = longitude;
-        }
-        
-        // finished populating fields.. Update or Register
-        ScbeResponseT<favoritePlace> scbeResp = null;
-        
-        if(favPlace != null){
-	        
-	            // registering
-
-            new Thread(new Runnable() {
-                public void run() {
-                	favoritePlace reg;
-                	ScbeClient scbeClient = scbeService.getScbeClient();
-                	ScbeResponseT<favoritePlace> respFav1 = scbeClient.register(favPlace, OperationScope.RemoteScope);
-                	if (respFav1.Status == ScbeResponseStatus.Completed)
-               		 reg = respFav1.Data;
-                }
-            }).start();
-        	
-
-		
-	   }
+   
         
     }
 
