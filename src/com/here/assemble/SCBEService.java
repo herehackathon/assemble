@@ -50,7 +50,7 @@ public class SCBEService extends Service{
             latitude = 	mLocationClient.getLastLocation().getLatitude();
             longitude = mLocationClient.getLastLocation().getLongitude();   
             favPlace.name = "Assemble";
-            favPlace.attribution = "lili.shi@here.com";
+            favPlace.attribution = "lili.shi@here.com, lilidotshi@gmail.com,srividya.rajagopalan@here.com,gregory.coletta@here.com";
             favPlace.description = "Something Awesome Is Happening HERE!!!";
             if (favPlace.location == null)
                 favPlace.location = new Location();
